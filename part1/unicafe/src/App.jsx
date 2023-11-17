@@ -2,9 +2,15 @@ import { useState } from 'react'
 
 // a proper place to define a component
 const Statistics = ({good, neutral, bad, all, avg, pos}) => {
+  if (all === 0) {
+    return (
+      <div>
+        No feedback given
+      </div>
+    )
+  }
   return (
     <div>
-      <h1> statistics </h1>
       good {good} <br />
       neutral {neutral} <br />
       bad {bad} <br />
@@ -60,6 +66,7 @@ const App = () => {
         onClick={increaseBad}
         text='bad'
       />
+      <h1> statistics </h1>
       <Statistics good={good} neutral={neutral} bad={bad} all={all} avg={avg} pos={pos}  />
     </div>
   )
