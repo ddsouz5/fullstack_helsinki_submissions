@@ -18,6 +18,24 @@ const DisplayBad = ({ bad }) => {
   )
 }
 
+const DisplayAll = ({ all }) => {
+  return (
+    <div>all {all}</div>
+  )
+}
+
+const DisplayAvg = ({ avg }) => {
+  return (
+    <div>average {avg}</div>
+  )
+}
+
+const DisplayPos = ({ pos }) => {
+  return (
+    <div>positive {pos} %</div>
+  )
+}
+
 const Button = ({ onClick, text }) => (
   <button onClick={onClick}>
     {text}
@@ -29,6 +47,9 @@ const App = () => {
   const [good, setGood] = useState(0)
   const [neutral, setNeutral] = useState(0)
   const [bad, setBad] = useState(0)
+  const all = good + neutral + bad
+  const avg = (good - bad)/all
+  const pos = (good/all) * 100
 
   const increaseGood = () => {
     console.log('increasing, value before', good)
@@ -64,6 +85,9 @@ const App = () => {
       <DisplayGood good={good} />
       <DisplayNeutral neutral={neutral} />
       <DisplayBad bad={bad} />
+      <DisplayAll all={all} />
+      <DisplayAvg avg={avg} />
+      <DisplayPos pos={pos} />
     </div>
   )
 }
