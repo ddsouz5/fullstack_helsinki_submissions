@@ -1,38 +1,17 @@
 import { useState } from 'react'
 
-const DisplayGood = ({ good }) => {
+// a proper place to define a component
+const Statistics = ({good, neutral, bad, all, avg, pos}) => {
   return (
-    <div>good {good}</div>
-  )
-}
-
-const DisplayNeutral = ({ neutral }) => {
-  return (
-    <div>neutral {neutral}</div>
-  )
-}
-
-const DisplayBad = ({ bad }) => {
-  return (
-    <div>bad {bad}</div>
-  )
-}
-
-const DisplayAll = ({ all }) => {
-  return (
-    <div>all {all}</div>
-  )
-}
-
-const DisplayAvg = ({ avg }) => {
-  return (
-    <div>average {avg}</div>
-  )
-}
-
-const DisplayPos = ({ pos }) => {
-  return (
-    <div>positive {pos} %</div>
+    <div>
+      <h1> statistics </h1>
+      good {good} <br />
+      neutral {neutral} <br />
+      bad {bad} <br />
+      all {all} <br />
+      average {avg} <br />
+      positive {pos} % <br />
+    </div>
   )
 }
 
@@ -81,13 +60,7 @@ const App = () => {
         onClick={increaseBad}
         text='bad'
       />
-      <h1> statistics </h1>
-      <DisplayGood good={good} />
-      <DisplayNeutral neutral={neutral} />
-      <DisplayBad bad={bad} />
-      <DisplayAll all={all} />
-      <DisplayAvg avg={avg} />
-      <DisplayPos pos={pos} />
+      <Statistics good={good} neutral={neutral} bad={bad} all={all} avg={avg} pos={pos}  />
     </div>
   )
 }
