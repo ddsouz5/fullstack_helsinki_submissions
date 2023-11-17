@@ -1,6 +1,13 @@
 import { useState } from 'react'
 
-// a proper place to define a component
+const StatisticLine = ({text, value}) => {
+  return (
+    <div>
+      {text} {value} <br />
+    </div>
+  )
+}
+
 const Statistics = ({good, neutral, bad, all, avg, pos}) => {
   if (all === 0) {
     return (
@@ -11,12 +18,12 @@ const Statistics = ({good, neutral, bad, all, avg, pos}) => {
   }
   return (
     <div>
-      good {good} <br />
-      neutral {neutral} <br />
-      bad {bad} <br />
-      all {all} <br />
-      average {avg} <br />
-      positive {pos} % <br />
+      <StatisticLine text="good" value ={good} />
+      <StatisticLine text="neutral" value ={neutral} />
+      <StatisticLine text="bad" value ={bad} />
+      <StatisticLine text="all" value ={all} />
+      <StatisticLine text="avg" value ={avg} />
+      <StatisticLine text="pos" value ={pos} />
     </div>
   )
 }
