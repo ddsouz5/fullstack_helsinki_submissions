@@ -1,7 +1,8 @@
-const Persons = ({ person }) => {
+const Persons = ({ person, handleClick }) => {
     return (
         <div>
-            {person.name} {person.number}
+            {person.name} {person.number} 
+            <button onClick={handleClick}>delete</button>
         </div>
     )
   }
