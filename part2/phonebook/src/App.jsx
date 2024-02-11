@@ -4,6 +4,8 @@ import personService from './services/persons'
 import Persons from './components/Persons'
 import PersonForm from './components/PersonForm'
 import Filter from './components/Filter'
+import Notification from './components/Notification'
+import './index.css'
 
 
 const App = () => {
@@ -11,6 +13,7 @@ const App = () => {
   const [newName, setNewName] = useState('')
   const [newNumber, setNewNumber] = useState('')
   const [showAll, setShowAll] = useState('')
+  const [alertMessage, setAlertMessage] = useState(null)
 
   useEffect(() => {
     // console.log('effect')
@@ -51,6 +54,14 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
+        .catch(error => {
+          setAlertMessage(
+            `Information ${personObject.name} has already been removed from server`
+          )
+          setTimeout(() => {
+            setAlertMessage(null)
+          }, 5000)
+        })
       }
     }
     else {
@@ -66,6 +77,14 @@ const App = () => {
         setPersons(persons.concat(returnedPerson))
         setNewName('')
         setNewNumber('')
+      })
+      .then(success => {
+        setAlertMessage(
+          `${newName} was added`
+        )
+        setTimeout(() => {
+          setAlertMessage(null)
+        }, 5000)
       })
     }
   }
@@ -95,6 +114,7 @@ const App = () => {
     <div>
       {/* debug: {newName} */}
       <h2>Phonebook</h2>
+      <Notification message = {alertMessage} />
       <Filter
         showAll={showAll}
         handleFilterChange={handleFilterChange}
