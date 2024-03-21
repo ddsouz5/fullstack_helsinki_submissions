@@ -1,0 +1,61 @@
+import { useState } from "react";
+
+function CountriesList({ countries, filterText }) {
+  // const listCountries = countries.map(countryobj => 
+  //   <li key={countryobj.name.common}>{countryobj.name.common}</li>
+  //   )
+  countries.forEach((countryobj) => {
+    // console.log(countryobj.name.common)
+    if (
+      countryobj.name.common.toLowerCase().indexOf(
+        filterText.toLowerCase()
+      ) === -1
+    ) {
+      return;
+    }
+    return countryobj.name.common
+  });
+  // return <ul>{countryobj.name.common}</ul>;
+}
+
+function SearchBar({ 
+  filterText,
+  onFilterTextChange
+}) {
+  return (
+    <form>
+      find countries
+      <input 
+        type="text"
+        value={filterText}
+        placeholder="Search..." 
+        onChange={(e) => onFilterTextChange(e.target.value)}
+        />
+    </form>
+  );
+}
+
+function FilterableCountry({ countries }) {
+  const [filterText, setFilterText] = useState('')
+  return (
+    <div>
+      <SearchBar 
+        filterText={filterText}
+        onFilterTextChange={setFilterText}
+        />
+      <CountriesList 
+        countries={countries} 
+        filterText={filterText}/>
+    </div>
+  );
+}
+
+const COUNTRIES = [
+  {name: {common: "Kuwait", official: "State of Kuwait"} },
+  {name: {common: "Austria", official: "Republic of Austria"} }
+
+]
+
+export default function App() {
+  return <FilterableCountry countries={COUNTRIES} />
+}
