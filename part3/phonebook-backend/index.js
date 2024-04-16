@@ -54,7 +54,7 @@ app.get('/info', (request, response) => {
   response.send('Phonebook has info for ' + persons.length + ' people <br/> <br/>' + event.toString())
 })
 
-app.get('/api/persons/:id', (request, response) => {
+app.get('/api/persons/:id', (request, response, next) => {
 //  const id = Number(request.params.id)
 //  const person = persons.find(person => person.id === id)
 //  if (person) {
@@ -62,13 +62,19 @@ app.get('/api/persons/:id', (request, response) => {
 //  } else {
 //    response.status(404).end()
 //  }
-  Person.findById(request.params.id).then(person => {
-    response.json(person)
-  })
+  Person.findById(request.params.id)
+    .then(person => {
+      if (person) {
+        response.json(person)
+      } else {
+        response.status(404).end()
+      }
+    })
+    .catch(error => next(error))
 })
 
-// CHANGE TO DELETE FROM MONGODB
-app.delete('/api/persons/:id', (request, response) => {
+// CHANGE TO DELETE FROM MONGODB  
+app.delete('/api/persons/:id', (request, response, next) => {
   //const id = Number(request.params.id)
   //persons = persons.filter(person => person.id !== id)
   //response.status(204).end()
@@ -131,6 +137,18 @@ app.post('/api/persons', (request, response) => {
     response.json(savedPerson)
   })
 })
+
+const errorHandler = (error, request, response, next) => {
+  console.error(error.message)
+
+  if (error.name == 'CastError') {
+    return response.status(400).send({ error: 'malformatted id' })
+  }
+  
+  next(error)
+}
+
+app.use(errorHandler)
 
 const PORT = process.env.PORT
 app.listen(PORT, () => {
