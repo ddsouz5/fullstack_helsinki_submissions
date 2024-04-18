@@ -8,6 +8,13 @@ const Notification = ({ message }) => {
           {message}
         </div>
       )
+    }
+    else if (message.includes('validation')) {
+      return (
+        <div className='error'>
+          {message}
+        </div>
+      )
     }  
     return (
       <div className='success'>

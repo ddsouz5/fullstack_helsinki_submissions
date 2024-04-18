@@ -86,6 +86,14 @@ const App = () => {
           setAlertMessage(null)
         }, 5000)
       })
+      .catch(error => {
+        // this is the way to access the error message
+        console.log(error.response.data.error)
+        setAlertMessage(error.response.data.error)
+        setTimeout(() => {
+          setAlertMessage(null)
+        }, 5000)
+      })
     }
   }
 
