@@ -42,11 +42,14 @@ const App = () => {
   const addPerson = (event) => {
     event.preventDefault()
     // console.log('button clicked', event.target)
+    // TODO Need a better way of handling duplicate names
     const personObjects = persons.filter(person => person.name === newName)
+    //const personObjects = persons.find(person => person.name === newName)
     if (personObjects.length >= 1) {
       if (window.confirm(`${newName} is already added to phonebook, replace the old number with new one?`)) {
-        const personObject = personObjects[0]
-        personObject.number = newNumber
+        //const personObject = personObjects[0]
+        //personObject.number = newNumber
+        const personObject = { ...personObjects[0], number: newNumber }
         personService
         .update(personObject.id, personObject)
         .then(returnedPerson => {
@@ -54,10 +57,20 @@ const App = () => {
           setNewName('')
           setNewNumber('')
         })
-        .catch(error => {
+        .then(success => {
           setAlertMessage(
-            `Information ${personObject.name} has already been removed from server`
+            `${personObject.name} was updated`
           )
+          setTimeout(() => {
+            setAlertMessage(null)
+          }, 5000)
+        })
+        .catch(error => {
+          //setAlertMessage(
+          //  `${personObject.name} has already been removed from server`
+          //)
+          console.log(error.response.data.error)
+          setAlertMessage(error.response.data.error)
           setTimeout(() => {
             setAlertMessage(null)
           }, 5000)
