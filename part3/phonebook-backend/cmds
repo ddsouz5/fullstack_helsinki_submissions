@@ -4,3 +4,4 @@ npm install --save-dev nodemon
 npm run dev
 npm install cors # for different ORIGINS between server and backend
 npm install mongoose
+npm install dotenv
