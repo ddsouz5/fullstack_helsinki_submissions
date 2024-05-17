@@ -5,3 +5,6 @@ npm run dev
 npm install cors # for different ORIGINS between server and backend
 npm install mongoose
 npm install dotenv
+npm install eslint --save-dev
+npx eslint --init
+npm install --save-dev @stylistic/eslint-plugin-js
